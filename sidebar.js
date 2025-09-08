@@ -2,7 +2,7 @@ document.getElementById("sidebar").innerHTML = `
 <div class="sidebar">
     <div class="logo">
         <span class="logo-icon">💓</span>
-        <span class="logo-text">AYUSH EMR</span>
+        <span class="logo-text">Medicore Validator</span>
     </div>
     <ul class="menu">
         <li><a href="dashboard.html">Dashboard</a></li>
