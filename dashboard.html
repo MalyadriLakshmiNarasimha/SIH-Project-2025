@@ -27,31 +27,68 @@
 
     <!-- Main Content -->
     <div class="flex-1 p-8">
-      <h1 class="text-2xl font-bold text-gray-800">Welcome to the Dashboard</h1>
-      <p class="mt-2 text-gray-600">Choose a module from the sidebar to get started.</p>
+      <h1 class="text-2xl font-bold text-gray-800">👨‍⚕️ Welcome, <span id="doctorName">Doctor</span></h1>
+      <p class="mt-2 text-gray-600">Here is your personalized dashboard.</p>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-        <a href="patient-records.html" class="p-6 bg-white rounded-lg shadow hover:shadow-lg transition">
+        <div class="p-6 bg-white rounded-lg shadow">
           <i data-feather="user" class="h-6 w-6 text-indigo-600"></i>
-          <h3 class="mt-2 font-semibold">Patient Records</h3>
-          <p class="text-sm text-gray-500">Manage AYUSH EMRs</p>
-        </a>
+          <h3 class="mt-2 font-semibold">Email</h3>
+          <p class="text-sm text-gray-500" id="doctorEmail"></p>
+        </div>
 
-        <a href="mapping-engine.html" class="p-6 bg-white rounded-lg shadow hover:shadow-lg transition">
-          <i data-feather="code" class="h-6 w-6 text-indigo-600"></i>
-          <h3 class="mt-2 font-semibold">Mapping Engine</h3>
-          <p class="text-sm text-gray-500">NAMASTE ↔ ICD11 Mapping</p>
-        </a>
+        <div class="p-6 bg-white rounded-lg shadow">
+          <i data-feather="users" class="h-6 w-6 text-indigo-600"></i>
+          <h3 class="mt-2 font-semibold">Patients Count</h3>
+          <p class="text-sm text-gray-500" id="patientsCount"></p>
+        </div>
 
-        <a href="analytics.html" class="p-6 bg-white rounded-lg shadow hover:shadow-lg transition">
+        <div class="p-6 bg-white rounded-lg shadow">
           <i data-feather="bar-chart-2" class="h-6 w-6 text-indigo-600"></i>
-          <h3 class="mt-2 font-semibold">Analytics</h3>
-          <p class="text-sm text-gray-500">Trends & Insights</p>
-        </a>
+          <h3 class="mt-2 font-semibold">Role</h3>
+          <p class="text-sm text-gray-500" id="doctorRole"></p>
+        </div>
       </div>
+
+      <button onclick="logout()" class="mt-6 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
     </div>
   </div>
 
-  <script>feather.replace()</script>
+  <script>
+    feather.replace();
+
+    async function loadDashboard() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("⚠️ Not logged in!");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const res = await fetch("http://localhost:5000/auth/dashboard", {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        document.getElementById("doctorName").innerText = data.name;
+        document.getElementById("doctorEmail").innerText = data.email;
+        document.getElementById("doctorRole").innerText = data.role;
+        document.getElementById("patientsCount").innerText = data.patientsCount;
+      } else {
+        alert(data.error || "Unauthorized");
+        window.location.href = "login.html";
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    }
+
+    loadDashboard();
+  </script>
 </body>
 </html>

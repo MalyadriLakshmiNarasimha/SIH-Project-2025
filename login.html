@@ -118,32 +118,26 @@
       </div>
     </div>
   </div>
-
   <script>
-    feather.replace();
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = Object.fromEntries(new FormData(e.target).entries());
 
-    async function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+  const res = await fetch("/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData)
+  });
 
-      try {
-        const res = await fetch("http://localhost:5000/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password })
-        });
-
-        const data = await res.json();
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          window.location.href = "profile.html"; // redirect to profile
-        } else {
-          alert(data.error || "Invalid login");
-        }
-      } catch (err) {
-        alert("Error connecting to server");
-      }
-    }
-  </script>
+  const data = await res.json();
+  if (data.role === "patient") {
+    window.location.href = "profile.html";
+  } else if (data.role === "doctor") {
+    window.location.href = "dashboard.html";
+  } else {
+    alert(data.error);
+  }
+});
+</script>
 </body>
 </html>

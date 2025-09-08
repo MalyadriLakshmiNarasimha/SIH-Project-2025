@@ -33,21 +33,43 @@
   <p><b>Role:</b> <span id="role"></span></p>
   <p><b>ABHA ID:</b> <span id="abha"></span></p>
 </div>
-
 <script>
- const token = localStorage.getItem("token");
+    async function loadProfile() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("⚠️ Please login first");
+        window.location.href = "login.html";
+        return;
+      }
 
-fetch("/profile", {
-  headers: { "Authorization": token }
-})
-.then(res => res.json())
-.then(user => {
-  document.getElementById("name").innerText = user.name;
-  document.getElementById("email").innerText = user.email;
-  document.getElementById("role").innerText = user.role;
-  document.getElementById("abha").innerText = user.abhaId;
-});
-</script>
+      try {
+        const res = await fetch("/auth/profile", {
+          method: "GET",
+          headers: { "Authorization": "Bearer " + token }
+        });
+
+        const data = await res.json();
+        if (data.error) {
+          alert("❌ " + data.error);
+          window.location.href = "login.html";
+        } else {
+          document.getElementById("name").textContent = data.name;
+          document.getElementById("email").textContent = data.email;
+          document.getElementById("role").textContent = data.role;
+        }
+      } catch (err) {
+        alert("❌ Could not load profile");
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
+      window.location.href = "login.html";
+    }
+
+    loadProfile();
+  </script>
 <script>feather.replace()</script>
 </body>
 </html>

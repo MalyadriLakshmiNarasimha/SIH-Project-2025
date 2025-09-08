@@ -23,5 +23,30 @@
     </form>
     <p class="mt-4 text-sm text-gray-600 text-center">Already have an account? <a href="login.html" class="text-indigo-600">Login</a></p>
   </div>
+   <script>
+    document.getElementById("signupForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = Object.fromEntries(new FormData(e.target).entries());
+
+      try {
+        const res = await fetch("/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await res.json();
+        alert(data.message || data.error);
+
+        if (data.message) {
+          // redirect to login page after signup
+          window.location.href = "login.html";
+        }
+      } catch (err) {
+        alert("❌ Something went wrong. Please try again.");
+      }
+    });
+  </script>
 </body>
 </html>
