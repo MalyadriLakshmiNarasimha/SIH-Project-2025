@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapping Engine - AYUSH EMR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="font-sans bg-gray-50">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-white border-r">
+      <div class="p-4 flex items-center">
+        <i data-feather="activity" class="h-6 w-6 text-indigo-600"></i>
+        <span class="ml-2 font-bold text-gray-900">AYUSH EMR</span>
+      </div>
+      <nav class="mt-5 space-y-2">
+        <a href="dashboard.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</a>
+        <a href="patient-records.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Patient Records</a>
+        <a href="mapping-engine.html" class="block px-4 py-2 bg-indigo-100 text-indigo-600 font-semibold">Mapping Engine</a>
+        <a href="consent-audit.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Consent & Audit</a>
+        <a href="analytics.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Analytics</a>
+        <a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-8 overflow-y-auto">
+      <h1 class="text-2xl font-bold mb-4">Mapping Engine</h1>
+      <p class="mb-4 text-gray-600">Search for a NAMASTE code to find equivalent ICD-11 mappings.</p>
+
+      <input type="text" id="search" placeholder="Enter NAMASTE code or disorder..." class="w-full border rounded p-2 mb-4">
+      <table class="w-full bg-white rounded shadow">
+        <thead>
+          <tr class="bg-indigo-100">
+            <th class="p-2 text-left">NAMASTE Code</th>
+            <th class="p-2 text-left">Disorder</th>
+            <th class="p-2 text-left">ICD-11 Code</th>
+            <th class="p-2 text-left">ICD-11 Disorder</th>
+          </tr>
+        </thead>
+        <tbody id="results"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    feather.replace();
+
+    const mappings = [
+      { namaste: "N001", disorder: "Prameha (Diabetes)", icd: "5A11", icdDisorder: "Type 2 Diabetes Mellitus" },
+      { namaste: "N045", disorder: "Shwas (Asthma)", icd: "CA23", icdDisorder: "Asthma" }
+    ];
+
+    const searchInput = document.getElementById("search");
+    const results = document.getElementById("results");
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      results.innerHTML = "";
+      mappings.filter(m =>
+        m.namaste.toLowerCase().includes(query) ||
+        m.disorder.toLowerCase().includes(query)
+      ).forEach(m => {
+        results.innerHTML += `
+          <tr class="border-t">
+            <td class="p-2">${m.namaste}</td>
+            <td class="p-2">${m.disorder}</td>
+            <td class="p-2">${m.icd}</td>
+            <td class="p-2">${m.icdDisorder}</td>
+          </tr>`;
+      });
+    });
+  </script>
+</body>
+</html>

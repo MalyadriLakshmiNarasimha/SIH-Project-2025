@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AYUSH EMR - Digital Health Platform</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #10b981 100%);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i data-feather="activity" class="h-8 w-8 text-indigo-600"></i>
+                        <span class="ml-2 text-xl font-bold text-gray-900">AYUSH EMR</span>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-8">
+                    <a href="index.html"
+                        class="text-indigo-600 border-b-2 border-indigo-600 px-1 pt-1 text-sm font-medium">Home</a>
+                    <a href="patient-records.html"
+                        class="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium">Patient Records</a>
+                    <a href="mapping-engine.html"
+                        class="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium">Mapping Engine</a>
+                    <a href="consent-audit.html"
+                        class="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium">Consent & Audit</a>
+                    <a href="analytics.html"
+                        class="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium">Analytics</a>
+                    <a href="login.html"
+                        class="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium">Login</a>
+                </div>
+
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button type="button"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                        <i data-feather="menu" class="block h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-gradient">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                    Harmonizing AYUSH with Modern Medicine
+                </h1>
+                <p class="mt-6 max-w-lg mx-auto text-xl text-indigo-100">
+                    The first digital health platform integrating NAMASTE codes with WHO ICD-11 TM2, compliant with
+                    India's EHR Standards 2016.
+                </p>
+                <div class="mt-10 flex justify-center space-x-4">
+                    <a href="signup.html"
+                        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-gray-50">
+                        Get Started
+                    </a>
+                    <a href="patient-records.html"
+                        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 bg-opacity-60 hover:bg-opacity-70">
+                        Try Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Features</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    A Complete Digital Health Solution
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Designed specifically for AYUSH practitioners with modern healthcare standards.
+                </p>
+            </div>
+
+            <div class="mt-20">
+                <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Feature Cards -->
+                    <div class="feature-card rounded-lg bg-gray-50 p-6">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                            <i data-feather="code"></i>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900">NAMASTE-ICD11 Mapping</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Seamless integration of 4,500+ NAMASTE codes with WHO ICD-11 TM2 (529 disorders + 196
+                                patterns).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card rounded-lg bg-gray-50 p-6">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                            <i data-feather="shield"></i>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900">ABHA Integration</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Secure OAuth 2.0 authentication with ABHA ID for unified health records.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card rounded-lg bg-gray-50 p-6">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                            <i data-feather="file-text"></i>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900">FHIR Compliance</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Stores data as FHIR R4 resources (Condition, Observation, Encounter, Patient).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card rounded-lg bg-gray-50 p-6">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                            <i data-feather="lock"></i>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900">Consent Management</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                ISO 22600 access control with patient consent management and audit trails.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card rounded-lg bg-gray-50 p-6">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                            <i data-feather="trending-up"></i>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900">Analytics Dashboard</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Disease trends, AYUSH treatment patterns, and decision support alerts.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card rounded-lg bg-gray-50 p-6">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                            <i data-feather="check-circle"></i>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900">EHR Standards 2016</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Fully compliant with India's EHR Standards 2016 for interoperability.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-indigo-700">
+        <div class="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                <span class="block">Ready to transform your practice?</span>
+                <span class="block">Start your digital health journey today.</span>
+            </h2>
+            <p class="mt-4 text-lg leading-6 text-indigo-200">
+                Join hundreds of AYUSH practitioners already benefiting from our platform.
+            </p>
+            <a href="signup.html"
+                class="mt-8 w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50 sm:w-auto">
+                Sign up for free
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 tracking-wider uppercase">Product</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="features.html" class="text-base text-gray-600 hover:text-gray-900">Features</a>
+                        </li>
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Pricing</a></li>
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 tracking-wider uppercase">Resources</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Documentation</a></li>
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Guides</a></li>
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 tracking-wider uppercase">Company</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">About</a></li>
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Careers</a></li>
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 tracking-wider uppercase">Legal</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Privacy</a></li>
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Terms</a></li>
+                        <li><a href="#" class="text-base text-gray-600 hover:text-gray-900">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-200 pt-8">
+                <p class="text-base text-gray-400 text-center">
+                    &copy; 2023 AYUSH EMR. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        AOS.init();
+        feather.replace();
+    </script>
+</body>
+
+</html>

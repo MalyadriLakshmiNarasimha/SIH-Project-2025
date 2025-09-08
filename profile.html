@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - AYUSH EMR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-white border-r">
+      <div class="p-4 flex items-center">
+        <i data-feather="activity" class="h-6 w-6 text-indigo-600"></i>
+        <span class="ml-2 font-bold text-gray-900">AYUSH EMR</span>
+      </div>
+      <nav class="mt-5 space-y-2">
+        <a href="dashboard.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</a>
+        <a href="patient-records.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Patient Records</a>
+        <a href="mapping-engine.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mapping Engine</a>
+        <a href="consent-audit.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Consent & Audit</a>
+        <a href="analytics.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Analytics</a>
+        <a href="profile.html" class="block px-4 py-2 bg-indigo-100 text-indigo-600 font-semibold">Profile</a>
+      </nav>
+    </div>
+
+    <!-- Profile Content -->
+    <div class="max-w-2xl mx-auto p-6 bg-white shadow rounded">
+  <h1 class="text-2xl font-bold mb-4">My Profile</h1>
+  <p><b>Name:</b> <span id="name"></span></p>
+  <p><b>Email:</b> <span id="email"></span></p>
+  <p><b>Role:</b> <span id="role"></span></p>
+  <p><b>ABHA ID:</b> <span id="abha"></span></p>
+</div>
+
+<script>
+ const token = localStorage.getItem("token");
+
+fetch("/profile", {
+  headers: { "Authorization": token }
+})
+.then(res => res.json())
+.then(user => {
+  document.getElementById("name").innerText = user.name;
+  document.getElementById("email").innerText = user.email;
+  document.getElementById("role").innerText = user.role;
+  document.getElementById("abha").innerText = user.abhaId;
+});
+</script>
+<script>feather.replace()</script>
+</body>
+</html>

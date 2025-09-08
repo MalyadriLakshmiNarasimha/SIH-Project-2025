@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AYUSH EMR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    .login-bg {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+    }
+
+    .abha-btn {
+      background: linear-gradient(135deg, #4f46e5 0%, #10b981 100%);
+    }
+  </style>
+</head>
+
+<body class="font-sans antialiased">
+  <div class="min-h-screen flex items-center justify-center login-bg py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
+      <div>
+        <div class="flex justify-center">
+          <i data-feather="activity" class="h-12 w-12 text-indigo-600"></i>
+        </div>
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Sign in to your account
+        </h2>
+        <p class="mt-2 text-center text-sm text-gray-600">
+          Or
+          <a href="signup.html" class="font-medium text-indigo-600 hover:text-indigo-500">
+            create a new account
+          </a>
+        </p>
+      </div>
+
+      <!-- ✅ Use onsubmit to call JS login() -->
+      <form class="mt-8 space-y-6" onsubmit="event.preventDefault(); login();">
+        <div class="rounded-md shadow-sm space-y-4">
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+            <div class="mt-1 relative rounded-md shadow-sm">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i data-feather="mail" class="h-5 w-5 text-gray-400"></i>
+              </div>
+              <input id="email" name="email" type="email" required
+                class="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+          </div>
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <div class="mt-1 relative rounded-md shadow-sm">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i data-feather="lock" class="h-5 w-5 text-gray-400"></i>
+              </div>
+              <input id="password" name="password" type="password" required
+                class="py-3 pl-10 block w-full border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input id="remember-me" name="remember-me" type="checkbox"
+              class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+            <label for="remember-me" class="ml-2 block text-sm text-gray-700">
+              Remember me
+            </label>
+          </div>
+          <div class="text-sm">
+            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+              Forgot your password?
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <button type="submit"
+            class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Sign in
+          </button>
+        </div>
+      </form>
+
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-300"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="px-2 bg-white text-gray-500">
+            Or continue with
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <button type="button"
+          class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+          <i data-feather="github" class="h-5 w-5"></i>
+          <span class="ml-2">GitHub</span>
+        </button>
+        <button type="button"
+          class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+          <i data-feather="twitter" class="h-5 w-5"></i>
+          <span class="ml-2">Twitter</span>
+        </button>
+      </div>
+
+      <div class="mt-6">
+        <button type="button"
+          class="abha-btn w-full inline-flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <i data-feather="user" class="h-5 w-5"></i>
+          <span class="ml-2">Sign in with ABHA</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    feather.replace();
+
+    async function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const res = await fetch("http://localhost:5000/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          window.location.href = "profile.html"; // redirect to profile
+        } else {
+          alert(data.error || "Invalid login");
+        }
+      } catch (err) {
+        alert("Error connecting to server");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Records - AYUSH EMR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>
+<body class="font-sans antialiased bg-gray-50">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-white border-r">
+      <div class="p-4 flex items-center">
+        <i data-feather="activity" class="h-6 w-6 text-indigo-600"></i>
+        <span class="ml-2 font-bold text-gray-900">AYUSH EMR</span>
+      </div>
+      <nav class="mt-5 space-y-2">
+        <a href="dashboard.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</a>
+        <a href="patient-records.html" class="block px-4 py-2 bg-indigo-100 text-indigo-600 font-semibold">Patient Records</a>
+        <a href="mapping-engine.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mapping Engine</a>
+        <a href="consent-audit.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Consent & Audit</a>
+        <a href="analytics.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Analytics</a>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6">
+      <h1 class="text-2xl font-bold mb-4">Patient Records</h1>
+      <form id="patientForm" class="space-y-4 bg-white p-6 rounded-lg shadow">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium">Name</label>
+            <input type="text" id="name" class="w-full border rounded p-2" required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium">Age</label>
+            <input type="number" id="age" class="w-full border rounded p-2" required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium">Gender</label>
+            <select id="gender" class="w-full border rounded p-2">
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium">ABHA ID</label>
+            <input type="text" id="abha" class="w-full border rounded p-2">
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Symptoms</label>
+          <textarea id="symptoms" class="w-full border rounded p-2"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Diagnosis (Auto-suggest)</label>
+          <input type="text" id="diagnosis" class="w-full border rounded p-2" placeholder="Type to search...">
+          <ul id="suggestions" class="mt-2 border rounded bg-white"></ul>
+        </div>
+        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded">Save Record</button>
+      </form>
+
+      <!-- JSON Preview -->
+      <div class="mt-6">
+        <h2 class="font-bold">FHIR Resource Preview</h2>
+        <pre id="output" class="bg-gray-100 p-4 rounded"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    feather.replace();
+
+    // Dummy auto-suggest codes
+    const codes = [
+      { system: "NAMASTE", code: "N001", display: "Prameha (Diabetes)" },
+      { system: "ICD-11", code: "5A11", display: "Type 2 Diabetes Mellitus" },
+      { system: "NAMASTE", code: "N045", display: "Shwas (Asthma)" },
+      { system: "ICD-11", code: "CA23", display: "Asthma" }
+    ];
+
+    const diagnosisInput = document.getElementById("diagnosis");
+    const suggestionsList = document.getElementById("suggestions");
+
+    diagnosisInput.addEventListener("input", () => {
+      const query = diagnosisInput.value.toLowerCase();
+      suggestionsList.innerHTML = "";
+      codes.filter(c => c.display.toLowerCase().includes(query))
+        .forEach(c => {
+          const li = document.createElement("li");
+          li.className = "px-2 py-1 hover:bg-gray-100 cursor-pointer";
+          li.textContent = `${c.system}: ${c.display} (${c.code})`;
+          li.onclick = () => {
+            diagnosisInput.value = `${c.system}: ${c.display}`;
+            suggestionsList.innerHTML = "";
+          };
+          suggestionsList.appendChild(li);
+        });
+    });
+
+    // Save patient record
+    document.getElementById("patientForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = {
+        resourceType: "Condition",
+        patient: { name: document.getElementById("name").value },
+        gender: document.getElementById("gender").value,
+        abha: document.getElementById("abha").value,
+        symptoms: document.getElementById("symptoms").value,
+        diagnosis: document.getElementById("diagnosis").value
+      };
+      document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>
